@@ -1,8 +1,8 @@
-package br.com.leonardomiyagi.kotlinbaseapplication.presentation.graph
+package br.com.leonardomiyagi.beerlist.presentation.graph
 
 import android.app.Activity
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.main.MainActivity
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.main.MainComponent
+import br.com.leonardomiyagi.beerlist.presentation.main.MainActivity
+import br.com.leonardomiyagi.beerlist.presentation.main.MainComponent
 import dagger.Binds
 import dagger.Module
 import dagger.android.ActivityKey

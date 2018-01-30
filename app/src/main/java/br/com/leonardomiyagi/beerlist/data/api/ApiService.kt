@@ -1,4 +1,4 @@
-package br.com.leonardomiyagi.kotlinbaseapplication.data.api
+package br.com.leonardomiyagi.beerlist.data.api
 
 /**
  * Created by lmiyagi on 11/8/17.

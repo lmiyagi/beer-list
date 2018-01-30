@@ -1,6 +1,6 @@
-package br.com.leonardomiyagi.kotlinbaseapplication.data.api
+package br.com.leonardomiyagi.beerlist.data.api
 
-import br.com.leonardomiyagi.kotlinbaseapplication.data.utils.RequestException
+import br.com.leonardomiyagi.beerlist.data.utils.RequestException
 import io.reactivex.Single
 import io.reactivex.SingleTransformer
 import retrofit2.Response

@@ -1,8 +1,8 @@
-package br.com.leonardomiyagi.kotlinbaseapplication.presentation.graph
+package br.com.leonardomiyagi.beerlist.presentation.graph
 
-import br.com.leonardomiyagi.kotlinbaseapplication.data.api.ApiClient
-import br.com.leonardomiyagi.kotlinbaseapplication.data.api.ApiService
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.utils.AppConstants
+import br.com.leonardomiyagi.beerlist.data.api.ApiClient
+import br.com.leonardomiyagi.beerlist.data.api.ApiService
+import br.com.leonardomiyagi.beerlist.presentation.utils.AppConstants
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

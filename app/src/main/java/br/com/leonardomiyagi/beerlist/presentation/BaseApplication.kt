@@ -1,6 +1,6 @@
-package br.com.leonardomiyagi.kotlinbaseapplication.presentation
+package br.com.leonardomiyagi.beerlist.presentation
 
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.graph.DaggerAppComponent
+import br.com.leonardomiyagi.beerlist.presentation.graph.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 

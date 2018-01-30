@@ -1,10 +1,10 @@
-package br.com.leonardomiyagi.kotlinbaseapplication.presentation.main
+package br.com.leonardomiyagi.beerlist.presentation.main
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import br.com.leonardomiyagi.kotlinbaseapplication.R
-import br.com.leonardomiyagi.kotlinbaseapplication.databinding.ActivityMainBinding
-import br.com.leonardomiyagi.kotlinbaseapplication.presentation.base.BaseActivity
+import br.com.leonardomiyagi.beerlist.R
+import br.com.leonardomiyagi.beerlist.databinding.ActivityMainBinding
+import br.com.leonardomiyagi.beerlist.presentation.base.BaseActivity
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.View {

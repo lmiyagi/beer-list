@@ -1,4 +1,4 @@
-package br.com.leonardomiyagi.kotlinbaseapplication.presentation.main
+package br.com.leonardomiyagi.beerlist.presentation.main
 
 /**
  * Created by lmiyagi on 11/8/17.

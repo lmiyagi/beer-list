@@ -1,4 +1,4 @@
-package br.com.leonardomiyagi.kotlinbaseapplication.presentation.graph
+package br.com.leonardomiyagi.beerlist.presentation.graph
 
 import dagger.Module
 

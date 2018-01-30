@@ -1,4 +1,4 @@
-package br.com.leonardomiyagi.kotlinbaseapplication
+package br.com.leonardomiyagi.beerlist
 
 import org.junit.Test
 
