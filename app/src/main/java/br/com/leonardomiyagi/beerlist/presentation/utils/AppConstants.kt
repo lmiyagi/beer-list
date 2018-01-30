@@ -5,7 +5,6 @@ package br.com.leonardomiyagi.beerlist.presentation.utils
  */
 class AppConstants {
     companion object {
-        // TODO change base API url
-        public const val API_BASE_URL = "http://www.someurl.com/"
+        public const val API_BASE_URL = "https://api.punkapi.com/v2/"
     }
 }
