@@ -31,6 +31,7 @@ class MainPresenter @Inject constructor(private val getBeers: GetBeers,
                 .subscribeOn(schedulers.io())
                 .observeOn(schedulers.main())
                 .subscribe({
+                    view?.hidePlaceholders()
                     if (it.isEmpty()) {
                         view?.showEmptyList()
                     } else {

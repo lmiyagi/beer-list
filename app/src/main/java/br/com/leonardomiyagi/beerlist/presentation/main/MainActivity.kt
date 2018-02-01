@@ -48,6 +48,10 @@ class MainActivity : BaseActivity(), MainContract.View {
         binding.placeholders?.data = placeholderData
     }
 
+    override fun hidePlaceholders() {
+        binding.placeholders?.data = PlaceholderData.hide()
+    }
+
     private fun setupRecyclerView() {
         adapter = BeerAdapter()
         binding.beersRecyclerView.layoutManager = LinearLayoutManager(this)

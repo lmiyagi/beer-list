@@ -10,6 +10,6 @@ import retrofit2.http.GET
  */
 interface ApiService {
 
-    @GET("/beers")
+    @GET("beers")
     fun getBeers(): Single<Response<List<ApiBeer>>>
 }

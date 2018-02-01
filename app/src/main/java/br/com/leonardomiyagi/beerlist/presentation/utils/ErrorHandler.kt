@@ -20,7 +20,7 @@ class ErrorHandler(private val context: Context) {
         return if (throwable is RequestException) {
             handleRequestException(throwable, tryAgainAction)
         } else {
-            unexpectedErrorPlaceholderData()
+            unexpectedErrorPlaceholderData(throwable.message)
         }
     }
 
@@ -33,24 +33,24 @@ class ErrorHandler(private val context: Context) {
             if (exception.isTimeOutException()) {
                 timeoutError(context, tryAgainAction)
             } else {
-                PlaceholderData(true, context.getString(R.string.error_connection), tryAgainAction, true)
+                PlaceholderData(false, context.getString(R.string.error_connection), tryAgainAction, true)
             }
         } else if (exception.isHttpError()) {
             when (exception.getHtppError()) {
-                RequestException.HttpError.INTERNAL_SERVER_ERROR -> PlaceholderData(true, context.getString(R.string.error_internal_server), tryAgainAction, true)
+                RequestException.HttpError.INTERNAL_SERVER_ERROR -> PlaceholderData(false, context.getString(R.string.error_internal_server), tryAgainAction, true)
                 RequestException.HttpError.TIMEOUT -> timeoutError(context, tryAgainAction)
-                else -> PlaceholderData(true, exception.getErrorMessage(), tryAgainAction, true)
+                else -> PlaceholderData(false, exception.getErrorMessage(), tryAgainAction, true)
             }
         } else {
-            unexpectedErrorPlaceholderData()
+            unexpectedErrorPlaceholderData(exception.message)
         }
     }
 
-    private fun unexpectedErrorPlaceholderData(): PlaceholderData {
-        return PlaceholderData(true, context.getString(R.string.error_unexpected), null, true)
+    private fun unexpectedErrorPlaceholderData(message: String?): PlaceholderData {
+        return PlaceholderData(false, context.getString(R.string.error_unexpected, message), null, true)
     }
 
     private fun timeoutError(context: Context, tryAgainAction: Runnable?): PlaceholderData {
-        return PlaceholderData(true, context.getString(R.string.error_server_timeout), tryAgainAction, true)
+        return PlaceholderData(false, context.getString(R.string.error_server_timeout), tryAgainAction, true)
     }
 }

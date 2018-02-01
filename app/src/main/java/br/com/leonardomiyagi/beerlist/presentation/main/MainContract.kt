@@ -12,7 +12,7 @@ interface MainContract {
         fun renderBeers(beers: List<Beer>)
         fun showEmptyList()
         fun showFetchError(placeholderData: PlaceholderData)
-
+        fun hidePlaceholders()
     }
 
     interface Presenter {
