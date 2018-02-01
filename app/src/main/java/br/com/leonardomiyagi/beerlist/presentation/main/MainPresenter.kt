@@ -2,6 +2,7 @@ package br.com.leonardomiyagi.beerlist.presentation.main
 
 import br.com.leonardomiyagi.beerlist.domain.beer.GetBeers
 import br.com.leonardomiyagi.beerlist.domain.provider.SchedulerProvider
+import br.com.leonardomiyagi.beerlist.presentation.utils.ErrorHandler
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
@@ -9,7 +10,8 @@ import javax.inject.Inject
  * Created by lmiyagi on 11/8/17.
  */
 class MainPresenter @Inject constructor(private val getBeers: GetBeers,
-                                        private val schedulers: SchedulerProvider) : MainContract.Presenter {
+                                        private val schedulers: SchedulerProvider,
+                                        private val errorHandler: ErrorHandler) : MainContract.Presenter {
 
     private var view: MainContract.View? = null
     private var getBeersDisposable: Disposable? = null
@@ -34,6 +36,6 @@ class MainPresenter @Inject constructor(private val getBeers: GetBeers,
                     } else {
                         view?.renderBeers(it)
                     }
-                }, { view?.showFetchError() })
+                }, { view?.showFetchError(errorHandler.handleError(it, Runnable(this::fetchBeers))) })
     }
 }

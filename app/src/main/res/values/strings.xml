@@ -4,4 +4,9 @@
     <string name="global_try_again">Tentar Novamente</string>
     <string name="global_loading">Carregando</string>
     <string name="global_empty_list">Nada há dados a exibir.</string>
+
+    <string name="error_connection">Erro na conexão</string>
+    <string name="error_internal_server">Erro no servidor</string>
+    <string name="error_unexpected">Ocorreu um erro inesperado</string>
+    <string name="error_server_timeout">Tempo limite de conexão esgotado</string>
 </resources>

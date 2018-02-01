@@ -2,16 +2,21 @@ package br.com.leonardomiyagi.beerlist.presentation.main
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import br.com.leonardomiyagi.beerlist.R
 import br.com.leonardomiyagi.beerlist.databinding.ActivityMainBinding
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.presentation.base.BaseActivity
+import br.com.leonardomiyagi.beerlist.presentation.main.adapter.BeerAdapter
+import br.com.leonardomiyagi.beerlist.presentation.utils.PlaceholderData
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.View {
 
     @Inject
     lateinit var presenter: MainContract.Presenter
+
+    private lateinit var adapter: BeerAdapter
 
     private lateinit var binding: ActivityMainBinding
 
@@ -32,18 +37,20 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     override fun renderBeers(beers: List<Beer>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        adapter.setBeers(beers)
     }
 
     override fun showEmptyList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        binding.placeholders?.data = PlaceholderData.empty(this)
     }
 
-    override fun showFetchError() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showFetchError(placeholderData: PlaceholderData) {
+        binding.placeholders?.data = placeholderData
     }
 
     private fun setupRecyclerView() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        adapter = BeerAdapter()
+        binding.beersRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.beersRecyclerView.adapter = adapter
     }
 }
