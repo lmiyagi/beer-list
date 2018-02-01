@@ -10,11 +10,10 @@ import javax.inject.Singleton
  * Created by lmiyagi on 11/8/17.
  */
 @Singleton
-@Component(modules = arrayOf(
-        AndroidSupportInjectionModule::class,
-        AppModule::class,
-        BindingModule::class,
-        ApiModule::class))
+@Component(modules = [(AndroidSupportInjectionModule::class),
+    (AppModule::class),
+    (BindingModule::class),
+    (ApiModule::class)])
 interface AppComponent : AndroidInjector<BaseApplication> {
 
 }

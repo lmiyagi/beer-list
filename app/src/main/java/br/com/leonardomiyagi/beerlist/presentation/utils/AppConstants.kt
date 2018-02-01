@@ -7,6 +7,8 @@ class AppConstants {
     companion object {
         public const val DATABASE_SCHEMA_VERSION = 1L
 
+        public const val D_API_BASE_URL = "EXTRA_API_BASE_URL"
+
         public const val API_BASE_URL = "https://api.punkapi.com/v2/"
     }
 }

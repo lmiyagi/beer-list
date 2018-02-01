@@ -11,5 +11,9 @@
             android:id="@+id/beers_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <include
+            android:id="@+id/placeholders"
+            layout="@layout/placeholders" />
     </FrameLayout>
 </layout>

@@ -4,11 +4,12 @@ import br.com.leonardomiyagi.beerlist.domain.provider.SchedulerProvider
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 /**
  * Created by lmiyagi on 01/02/18.
  */
-class DefaultSchedulerProvider : SchedulerProvider {
+class DefaultSchedulerProvider @Inject constructor() : SchedulerProvider {
 
     override fun io(): Scheduler {
         return Schedulers.io()

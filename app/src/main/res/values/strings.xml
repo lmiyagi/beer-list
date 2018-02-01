@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Beer List</string>
+
+    <string name="global_try_again">Tentar Novamente</string>
+    <string name="global_loading">Carregando</string>
+    <string name="global_empty_list">Nada há dados a exibir.</string>
 </resources>

@@ -21,6 +21,13 @@ class ApiModule {
 
     @Provides
     @Singleton
+    @Named(AppConstants.D_API_BASE_URL)
+    fun provideApiBaseUrl(): String {
+        return AppConstants.API_BASE_URL
+    }
+
+    @Provides
+    @Singleton
     fun provideHtppLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
@@ -35,7 +42,7 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(@Named(AppConstants.API_BASE_URL) baseUrl: String, okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(@Named(AppConstants.D_API_BASE_URL) baseUrl: String, okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
