@@ -10,5 +10,7 @@ interface BeerRepository {
 
     fun getBeers(): Single<List<Beer>>
 
+    fun getStoredBeers(): Single<List<Beer>>
+
     fun getBeer(): Single<Beer>
 }

@@ -5,6 +5,8 @@ package br.com.leonardomiyagi.beerlist.presentation.utils
  */
 class AppConstants {
     companion object {
+        public const val DATABASE_SCHEMA_VERSION = 1L
+
         public const val API_BASE_URL = "https://api.punkapi.com/v2/"
     }
 }

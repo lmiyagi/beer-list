@@ -16,6 +16,10 @@ class DefaultBeerRepository(private val apiClient: ApiClient,
         return apiClient.getBeers().map(apiToDomainMapper::mapCollection)
     }
 
+    override fun getStoredBeers(): Single<List<Beer>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getBeer(): Single<Beer> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
