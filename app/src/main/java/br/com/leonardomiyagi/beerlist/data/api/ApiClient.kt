@@ -11,7 +11,7 @@ import java.net.SocketTimeoutException
 /**
  * Created by lmiyagi on 11/8/17.
  */
-class ApiClient(val apiService: ApiService) {
+class ApiClient(private val apiService: ApiService) {
 
     fun getBeers(): Single<List<ApiBeer>> {
         return apiService.getBeers()
