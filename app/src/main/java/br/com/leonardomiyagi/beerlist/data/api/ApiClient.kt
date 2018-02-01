@@ -1,5 +1,6 @@
 package br.com.leonardomiyagi.beerlist.data.api
 
+import br.com.leonardomiyagi.beerlist.data.api.model.ApiBeer
 import br.com.leonardomiyagi.beerlist.data.utils.RequestException
 import io.reactivex.Single
 import io.reactivex.SingleTransformer
@@ -11,6 +12,13 @@ import java.net.SocketTimeoutException
  * Created by lmiyagi on 11/8/17.
  */
 class ApiClient(val apiService: ApiService) {
+
+    fun getBeers(): Single<List<ApiBeer>> {
+        return apiService.getBeers()
+                .compose(verifyRequestException())
+                .compose(verifyResponseException())
+                .compose(unwrap())
+    }
 
     private fun <T> verifyResponseException(): SingleTransformer<Response<T>, Response<T>> {
         return SingleTransformer { upstream ->
