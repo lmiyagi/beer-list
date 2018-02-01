@@ -9,7 +9,7 @@ import java.net.SocketTimeoutException
 class RequestException private constructor(private val errorCode: Int?,
                                            private val errorMessage: String?,
                                            private val errorType: ErrorType,
-                                           private val throwable: Throwable?) : Exception() {
+                                           private val throwable: Throwable?) : Exception(errorMessage) {
 
     companion object {
         fun httpError(errorCode: Int, errorMessage: String?): RequestException {

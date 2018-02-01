@@ -6,7 +6,7 @@ import io.realm.annotations.PrimaryKey
 /**
  * Created by lmiyagi on 2/1/18.
  */
-class RealmBeer : RealmObject() {
+open class RealmBeer : RealmObject() {
 
     @PrimaryKey
     var id: Long? = null
