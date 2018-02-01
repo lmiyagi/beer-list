@@ -27,6 +27,7 @@ class MainPresenter @Inject constructor(private val getBeers: GetBeers,
     }
 
     private fun fetchBeers() {
+        view?.showLoading()
         getBeersDisposable = getBeers.execute()
                 .subscribeOn(schedulers.io())
                 .observeOn(schedulers.main())

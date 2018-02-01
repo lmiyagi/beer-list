@@ -40,6 +40,10 @@ class MainActivity : BaseActivity(), MainContract.View {
         adapter.setBeers(beers)
     }
 
+    override fun showLoading() {
+        binding.placeholders?.data = PlaceholderData.loading(this)
+    }
+
     override fun showEmptyList() {
         binding.placeholders?.data = PlaceholderData.empty(this)
     }

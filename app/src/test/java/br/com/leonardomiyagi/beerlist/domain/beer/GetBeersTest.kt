@@ -33,7 +33,7 @@ class GetBeersTest {
     }
 
     @Test
-    fun getBeers_successful() {
+    fun getBeers_success() {
         `when`(beerRepository.getBeers()).thenReturn(Single.just(expectedBeers))
 
         val testObserver = TestObserver<List<Beer>>()

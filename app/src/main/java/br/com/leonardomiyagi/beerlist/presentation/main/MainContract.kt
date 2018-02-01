@@ -10,6 +10,7 @@ interface MainContract {
 
     interface View {
         fun renderBeers(beers: List<Beer>)
+        fun showLoading()
         fun showEmptyList()
         fun showFetchError(placeholderData: PlaceholderData)
         fun hidePlaceholders()
