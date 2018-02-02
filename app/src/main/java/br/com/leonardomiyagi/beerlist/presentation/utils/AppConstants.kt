@@ -10,6 +10,8 @@ class AppConstants {
         public const val D_APP_CONTEXT = "D_APP_CONTEXT"
         public const val D_API_BASE_URL = "D_API_BASE_URL"
 
+        public const val EXTRA_BEER = "EXTRA_BEER"
+
         public const val API_BASE_URL = "https://api.punkapi.com/v2/"
     }
 }

@@ -16,9 +16,9 @@ class ApiBeerToBeerMapper @Inject constructor() : Mapper<ApiBeer, Beer>() {
         beer.id = apiBeer.id
         beer.name = apiBeer.name
         beer.tagline = apiBeer.tagline
-        beer.first_brewed = apiBeer.first_brewed
+        beer.firstBrewed = apiBeer.firstBrewed
         beer.description = apiBeer.description
-        beer.image_url = apiBeer.image_url
+        beer.imageUrl = apiBeer.imageUrl
         return beer
     }
 }

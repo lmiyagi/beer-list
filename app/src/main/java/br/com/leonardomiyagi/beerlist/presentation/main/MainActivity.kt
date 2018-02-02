@@ -1,5 +1,6 @@
 package br.com.leonardomiyagi.beerlist.presentation.main
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -7,11 +8,13 @@ import br.com.leonardomiyagi.beerlist.R
 import br.com.leonardomiyagi.beerlist.databinding.ActivityMainBinding
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.presentation.base.BaseActivity
+import br.com.leonardomiyagi.beerlist.presentation.beer.detail.BeerDetailsActivity
 import br.com.leonardomiyagi.beerlist.presentation.main.adapter.BeerAdapter
+import br.com.leonardomiyagi.beerlist.presentation.utils.AppConstants
 import br.com.leonardomiyagi.beerlist.presentation.utils.PlaceholderData
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), MainContract.View {
+class MainActivity : BaseActivity(), MainContract.View, BeerAdapter.OnClickListener {
 
     @Inject
     lateinit var presenter: MainContract.Presenter
@@ -56,8 +59,14 @@ class MainActivity : BaseActivity(), MainContract.View {
         binding.placeholders?.data = PlaceholderData.hide()
     }
 
+    override fun onClick(beer: Beer) {
+        val intent = Intent(this, BeerDetailsActivity::class.java)
+        intent.putExtra(AppConstants.EXTRA_BEER, beer)
+        startActivity(intent)
+    }
+
     private fun setupRecyclerView() {
-        adapter = BeerAdapter()
+        adapter = BeerAdapter(this)
         binding.beersRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.beersRecyclerView.adapter = adapter
     }

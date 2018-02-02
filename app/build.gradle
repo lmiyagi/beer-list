@@ -27,6 +27,7 @@ android {
     dataBinding {
         enabled true
     }
+    buildToolsVersion '27.0.2'
 }
 
 kapt {
@@ -72,4 +73,10 @@ dependencies {
 
     // OkHttp
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    // Glide
+    implementation ("com.github.bumptech.glide:glide:$glide_version") {
+        exclude group: "com.android.support"
+    }
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
 }

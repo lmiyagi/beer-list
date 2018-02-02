@@ -12,7 +12,7 @@ open class RealmBeer : RealmObject() {
     var id: Long? = null
     var name: String? = null
     var tagline: String? = null
-    var first_brewed: String? = null
+    var firstBrewed: String? = null
     var description: String? = null
-    var image_url: String? = null
+    var imageUrl: String? = null
 }

@@ -11,7 +11,7 @@ import br.com.leonardomiyagi.beerlist.domain.model.Beer
 /**
  * Created by lmiyagi on 01/02/18.
  */
-class BeerAdapter : RecyclerView.Adapter<BeerAdapter.BeerViewHolder>() {
+class BeerAdapter (private val listener: OnClickListener) : RecyclerView.Adapter<BeerAdapter.BeerViewHolder>() {
 
     private val beers: MutableList<Beer> = ArrayList()
 
@@ -37,6 +37,11 @@ class BeerAdapter : RecyclerView.Adapter<BeerAdapter.BeerViewHolder>() {
 
         fun format(beer: Beer) {
             binding.beer = beer
+            binding.beerContainer.setOnClickListener { listener.onClick(beer) }
         }
+    }
+
+    interface OnClickListener {
+        fun onClick(beer: Beer)
     }
 }
