@@ -87,9 +87,4 @@ class MainPresenterTest : BaseTest() {
         expectedBeers = ArrayList()
         expectedBeers.add(beer)
     }
-
-    private fun getField(fields: Array<Field>, fieldName: String): Field? {
-        fields.forEach { if (it.name == fieldName) return it }
-        return null
-    }
 }
