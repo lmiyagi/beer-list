@@ -15,6 +15,7 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
+import java.lang.reflect.Field
 
 /**
  * Created by lmiyagi on 01/02/18.
@@ -45,7 +46,7 @@ class MainPresenterTest : BaseTest() {
     }
 
     @Test
-    fun getUsers_success() {
+    fun getUsersTest_success() {
         `when`(getBeers.execute()).thenReturn(Single.just(expectedBeers))
 
         presenter.attachView(view)
@@ -56,7 +57,7 @@ class MainPresenterTest : BaseTest() {
     }
 
     @Test
-    fun getUsers_error() {
+    fun getUsersTest_error() {
         `when`(getBeers.execute()).thenReturn(Single.error(mock(RequestException::class.java)))
 
         presenter.attachView(view)
@@ -66,10 +67,29 @@ class MainPresenterTest : BaseTest() {
         verify(view).showFetchError(any())
     }
 
+    @Test
+    fun onBeerClickedTest() {
+        val beer = mock(Beer::class.java)
+
+        val fields: Array<Field> = presenter.javaClass.declaredFields
+        val viewField: Field? = getField(fields, "view")
+        viewField?.isAccessible = true
+        viewField?.set(presenter, view)
+
+        presenter.onBeerClicked(beer)
+
+        verify(view).goToBeerDetails(beer)
+    }
+
     private fun setupExpectedBeers() {
         val beer = Mockito.mock(Beer::class.java)
 
         expectedBeers = ArrayList()
         expectedBeers.add(beer)
+    }
+
+    private fun getField(fields: Array<Field>, fieldName: String): Field? {
+        fields.forEach { if (it.name == fieldName) return it }
+        return null
     }
 }

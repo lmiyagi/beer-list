@@ -14,10 +14,12 @@ interface MainContract {
         fun showEmptyList()
         fun showFetchError(placeholderData: PlaceholderData)
         fun hidePlaceholders()
+        fun goToBeerDetails(beer: Beer)
     }
 
     interface Presenter {
         fun attachView(view: View)
         fun detachView()
+        fun onBeerClicked(beer: Beer)
     }
 }

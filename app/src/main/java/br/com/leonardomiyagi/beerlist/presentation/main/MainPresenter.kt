@@ -1,6 +1,7 @@
 package br.com.leonardomiyagi.beerlist.presentation.main
 
 import br.com.leonardomiyagi.beerlist.domain.beer.GetBeers
+import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.domain.provider.SchedulerProvider
 import br.com.leonardomiyagi.beerlist.presentation.utils.ErrorHandler
 import io.reactivex.disposables.Disposable
@@ -24,6 +25,10 @@ class MainPresenter @Inject constructor(private val getBeers: GetBeers,
     override fun detachView() {
         this.view = null
         getBeersDisposable?.dispose()
+    }
+
+    override fun onBeerClicked(beer: Beer) {
+        view?.goToBeerDetails(beer)
     }
 
     private fun fetchBeers() {
