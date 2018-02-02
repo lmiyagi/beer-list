@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.presentation.beer.detail.BeerDetailsActivity
+import br.com.leonardomiyagi.beerlist.presentation.main.MainActivity
 
 /**
  * Created by lmiyagi on 02/02/18.
@@ -14,6 +15,10 @@ class Navigator {
             val intent = Intent(context, BeerDetailsActivity::class.java)
             intent.putExtra(AppConstants.EXTRA_BEER, beer)
             context.startActivity(intent)
+        }
+
+        fun goToMain(context: Context) {
+            context.startActivity(Intent(context, MainActivity::class.java))
         }
     }
 }
