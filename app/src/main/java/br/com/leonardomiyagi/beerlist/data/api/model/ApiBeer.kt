@@ -13,10 +13,10 @@ class ApiBeer {
     var name: String? = null
     @SerializedName("tagline")
     var tagline: String? = null
-    @SerializedName("firstBrewed")
+    @SerializedName("first_brewed")
     var firstBrewed: String? = null
     @SerializedName("description")
     var description: String? = null
-    @SerializedName("imageUrl")
+    @SerializedName("image_url")
     var imageUrl: String? = null
 }
