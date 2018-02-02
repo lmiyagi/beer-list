@@ -1,5 +1,7 @@
 package br.com.leonardomiyagi.beerlist.presentation.main
 
+import br.com.leonardomiyagi.beerlist.base.BaseTest
+import br.com.leonardomiyagi.beerlist.data.utils.RequestException
 import br.com.leonardomiyagi.beerlist.domain.beer.GetBeers
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.domain.provider.SchedulerProvider
@@ -9,17 +11,16 @@ import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.BDDMockito.then
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
  * Created by lmiyagi on 01/02/18.
  */
 @RunWith(MockitoJUnitRunner::class)
-class MainPresenterTest {
+class MainPresenterTest : BaseTest() {
 
     @Mock
     lateinit var getBeers: GetBeers
@@ -49,9 +50,20 @@ class MainPresenterTest {
 
         presenter.attachView(view)
 
-        then(view).should().showLoading()
-        then(view).should().hidePlaceholders()
-        then(view).should().renderBeers(expectedBeers)
+        verify(view).showLoading()
+        verify(view).hidePlaceholders()
+        verify(view).renderBeers(expectedBeers)
+    }
+
+    @Test
+    fun getUsers_error() {
+        `when`(getBeers.execute()).thenReturn(Single.error(mock(RequestException::class.java)))
+
+        presenter.attachView(view)
+
+        verify(view).showLoading()
+        verify(errorHandler).handleError(any(), any())
+        verify(view).showFetchError(any())
     }
 
     private fun setupExpectedBeers() {
