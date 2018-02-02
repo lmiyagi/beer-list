@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#284F7C</color>
     <color name="colorSecondary">#F4F4F4</color>
     <color name="colorAccent">#9A9A9A</color>
+    <color name="lightGrey">#F4F4F4</color>
+
+    <color name="default_item_background">@color/lightGrey</color>
 </resources>

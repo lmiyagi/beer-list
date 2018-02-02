@@ -36,7 +36,7 @@ class BeerDetailsActivity : BaseActivity(), BeerDetailsContract.View {
         binding.beer = beer
         Glide.with(this)
                 .load(beer.imageUrl)
-                .apply(RequestOptions().fitCenter())
+                .apply(RequestOptions().fitCenter().placeholder(R.drawable.ic_beer_placeholder))
                 .into(binding.beerImage)
     }
 }

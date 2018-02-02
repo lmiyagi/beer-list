@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,16 +8,71 @@
             type="br.com.leonardomiyagi.beerlist.domain.model.Beer" />
     </data>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/beer_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/lightGrey">
 
-        <TextView
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/thumbnail_image_view"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            app:srcCompat="@drawable/ic_beer_placeholder" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="@{beer.name}"
-            android:textSize="16sp" />
-    </FrameLayout>
+            android:layout_alignBottom="@id/thumbnail_image_view"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/thumbnail_image_view"
+            android:layout_toLeftOf="@+id/details_button"
+            android:layout_toRightOf="@+id/thumbnail_image_view"
+            android:layout_toStartOf="@+id/details_button"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="bottom"
+                android:lines="1"
+                android:paddingBottom="4dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:text="@{beer.name}"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="top"
+                android:lines="1"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:text="@{beer.tagline}"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/details_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/thumbnail_image_view"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            app:srcCompat="@drawable/ic_right" />
+
+    </RelativeLayout>
 </layout>
