@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import br.com.leonardomiyagi.beerlist.R
 import br.com.leonardomiyagi.beerlist.databinding.ListItemBeerBinding
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 /**
  * Created by lmiyagi on 01/02/18.
  */
-class BeerAdapter (private val listener: OnClickListener) : RecyclerView.Adapter<BeerAdapter.BeerViewHolder>() {
+class BeerAdapter(private val listener: OnClickListener) : RecyclerView.Adapter<BeerAdapter.BeerViewHolder>() {
 
     private val beers: MutableList<Beer> = ArrayList()
 
@@ -37,6 +39,10 @@ class BeerAdapter (private val listener: OnClickListener) : RecyclerView.Adapter
 
         fun format(beer: Beer) {
             binding.beer = beer
+            Glide.with(binding.root.context)
+                    .load(beer.imageUrl)
+                    .apply(RequestOptions().fitCenter().placeholder(R.drawable.ic_beer_placeholder))
+                    .into(binding.thumbnailImageView)
             binding.beerContainer.setOnClickListener { listener.onClick(beer) }
         }
     }

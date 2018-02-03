@@ -2,6 +2,7 @@ package br.com.leonardomiyagi.beerlist.presentation.main
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import br.com.leonardomiyagi.beerlist.R
 import br.com.leonardomiyagi.beerlist.databinding.ActivityMainBinding
@@ -69,5 +70,7 @@ class MainActivity : BaseActivity(), MainContract.View, BeerAdapter.OnClickListe
         adapter = BeerAdapter(this)
         binding.beersRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.beersRecyclerView.adapter = adapter
+        binding.beersRecyclerView.addItemDecoration(DividerItemDecoration(this,
+                (binding.beersRecyclerView.layoutManager as LinearLayoutManager).orientation))
     }
 }
