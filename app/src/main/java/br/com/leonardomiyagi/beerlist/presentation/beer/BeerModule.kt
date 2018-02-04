@@ -2,6 +2,7 @@ package br.com.leonardomiyagi.beerlist.presentation.beer
 
 import br.com.leonardomiyagi.beerlist.data.repository.DefaultBeerRepository
 import br.com.leonardomiyagi.beerlist.domain.beer.GetBeers
+import br.com.leonardomiyagi.beerlist.domain.beer.GetFavoriteBeers
 import br.com.leonardomiyagi.beerlist.domain.beer.StoreBeer
 import br.com.leonardomiyagi.beerlist.domain.repository.BeerRepository
 import br.com.leonardomiyagi.beerlist.presentation.graph.ActivityScoped
@@ -27,6 +28,13 @@ abstract class BeerModule {
         @ActivityScoped
         fun provideGetBeers(beerRepository: BeerRepository): GetBeers {
             return GetBeers(beerRepository)
+        }
+
+        @Provides
+        @JvmStatic
+        @ActivityScoped
+        fun provideGetFavoriteBeers(beerRepository: BeerRepository): GetFavoriteBeers {
+            return GetFavoriteBeers(beerRepository)
         }
 
         @Provides

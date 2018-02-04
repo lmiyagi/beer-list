@@ -12,7 +12,7 @@ import dagger.android.AndroidInjector
  * Created by lmiyagi on 11/8/17.
  */
 @ActivityScoped
-@Subcomponent(modules = [(MainComponent.MainModule::class), (BeerModule::class), (MappersModule::class)])
+@Subcomponent(modules = [(MainComponent.MainModule::class), (BeerModule::class)])
 interface MainComponent : AndroidInjector<MainActivity> {
 
     @Subcomponent.Builder

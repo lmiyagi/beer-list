@@ -3,7 +3,6 @@ package br.com.leonardomiyagi.beerlist.presentation.beer.detail
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.presentation.beer.BeerModule
 import br.com.leonardomiyagi.beerlist.presentation.graph.ActivityScoped
-import br.com.leonardomiyagi.beerlist.presentation.graph.MappersModule
 import br.com.leonardomiyagi.beerlist.presentation.utils.AppConstants
 import dagger.Binds
 import dagger.Module
@@ -16,7 +15,7 @@ import javax.inject.Named
  * Created by lmiyagi on 02/02/18.
  */
 @ActivityScoped
-@Subcomponent(modules = [(BeerDetailsComponent.BeerDetailsModule::class), (BeerModule::class), (MappersModule::class)])
+@Subcomponent(modules = [(BeerDetailsComponent.BeerDetailsModule::class), (BeerModule::class)])
 interface BeerDetailsComponent : AndroidInjector<BeerDetailsActivity> {
 
     @Subcomponent.Builder

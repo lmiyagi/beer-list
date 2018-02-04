@@ -1,55 +1,54 @@
 package br.com.leonardomiyagi.beerlist.domain.beer
 
+import br.com.leonardomiyagi.beerlist.base.BaseTest
 import br.com.leonardomiyagi.beerlist.data.utils.RequestException
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.domain.repository.BeerRepository
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
+import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
- * Created by lmiyagi on 01/02/18.
+ * Created by lmiyagi on 2/4/18.
  */
 @RunWith(MockitoJUnitRunner::class)
-class GetBeersTest {
+class GetFavoriteBeersTest : BaseTest() {
 
     @Mock
     public lateinit var beerRepository: BeerRepository
     public lateinit var expectedBeers: MutableList<Beer>
-    public lateinit var getBeers: GetBeers
+    public lateinit var getFavoriteBeers: GetFavoriteBeers
 
     @Before
     fun setUp() {
         setupExpectedBeers()
 
-        getBeers = GetBeers(beerRepository)
+        getFavoriteBeers = GetFavoriteBeers(beerRepository)
     }
 
     @Test
-    fun getBeers_success() {
-        `when`(beerRepository.getBeers()).thenReturn(Single.just(expectedBeers))
+    fun getStoredBeers_success() {
+        Mockito.`when`(beerRepository.getStoredBeers()).thenReturn(Single.just(expectedBeers))
 
         val testObserver = TestObserver<List<Beer>>()
-        getBeers.execute().subscribe(testObserver)
+        getFavoriteBeers.execute().subscribe(testObserver)
 
         testObserver.assertComplete()
         testObserver.assertValues(expectedBeers)
     }
 
     @Test
-    fun getBeers_error() {
-        val errorMessage = "Not Found"
-        `when`(beerRepository.getBeers()).thenReturn(Single.error(RequestException.httpError(404, errorMessage)))
+    fun getStoredBeers_error() {
+        val errorMessage = "Internal Server Error"
+        Mockito.`when`(beerRepository.getStoredBeers()).thenReturn(Single.error(RequestException.httpError(500, errorMessage)))
 
         val testObserver = TestObserver<List<Beer>>()
-        getBeers.execute().subscribe(testObserver)
+        getFavoriteBeers.execute().subscribe(testObserver)
 
         testObserver.assertNotComplete()
         testObserver.assertError(RequestException::class.java)
@@ -57,7 +56,7 @@ class GetBeersTest {
     }
 
     private fun setupExpectedBeers() {
-        val beer = mock(Beer::class.java)
+        val beer = Mockito.mock(Beer::class.java)
 
         expectedBeers = ArrayList()
         expectedBeers.add(beer)
