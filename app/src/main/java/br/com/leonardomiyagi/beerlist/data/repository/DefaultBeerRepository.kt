@@ -2,25 +2,39 @@ package br.com.leonardomiyagi.beerlist.data.repository
 
 import br.com.leonardomiyagi.beerlist.data.api.ApiClient
 import br.com.leonardomiyagi.beerlist.data.api.model.ApiBeer
+import br.com.leonardomiyagi.beerlist.data.local.model.RealmBeer
 import br.com.leonardomiyagi.beerlist.data.mapper.Mapper
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.domain.repository.BeerRepository
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.realm.Realm
 import javax.inject.Inject
 
 /**
  * Created by lmiyagi on 2/1/18.
  */
 class DefaultBeerRepository @Inject constructor(private val apiClient: ApiClient,
-                                                private val apiToDomainMapper: Mapper<ApiBeer, Beer>) : BeerRepository {
+                                                private val apiToDomainMapper: Mapper<ApiBeer, Beer>,
+                                                private val realmToDomainMapper: Mapper<RealmBeer, Beer>,
+                                                private val domainToRealmMapper: Mapper<Beer, RealmBeer>) : BeerRepository {
 
     override fun getBeers(): Single<List<Beer>> {
         return apiClient.getBeers().map(apiToDomainMapper::mapCollection)
     }
 
     override fun getStoredBeers(): Single<List<Beer>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return Single.fromCallable<List<Beer>> {
+            try {
+                val realm = Realm.getDefaultInstance()
+                val beers = ArrayList<RealmBeer>()
+                beers.addAll(realm.where(RealmBeer::class.java).findAll())
+                realmToDomainMapper.mapCollection(beers)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                throw e
+            }
+        }
     }
 
     override fun getBeer(): Single<Beer> {
@@ -28,6 +42,19 @@ class DefaultBeerRepository @Inject constructor(private val apiClient: ApiClient
     }
 
     override fun storeBeer(beer: Beer): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return Completable.fromCallable {
+            try {
+                // todo store images
+
+                val realm = Realm.getDefaultInstance()
+                realm.executeTransaction { it ->
+                    it.insert(domainToRealmMapper.map(beer))
+                }
+                Completable.complete()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Completable.error(e)
+            }
+        }
     }
 }
