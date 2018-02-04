@@ -44,8 +44,6 @@ class DefaultBeerRepository @Inject constructor(private val apiClient: ApiClient
     override fun storeBeer(beer: Beer): Completable {
         return Completable.fromCallable {
             try {
-                // todo store images
-
                 val realm = Realm.getDefaultInstance()
                 realm.executeTransaction { it ->
                     it.insert(domainToRealmMapper.map(beer))

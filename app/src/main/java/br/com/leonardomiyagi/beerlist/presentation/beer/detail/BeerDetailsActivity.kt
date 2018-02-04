@@ -1,6 +1,7 @@
 package br.com.leonardomiyagi.beerlist.presentation.beer.detail
 
 import android.databinding.DataBindingUtil
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,9 +10,12 @@ import br.com.leonardomiyagi.beerlist.R
 import br.com.leonardomiyagi.beerlist.databinding.ActivityBeerDetailsBinding
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.presentation.base.BaseActivity
+import br.com.leonardomiyagi.beerlist.presentation.utils.ImageUtils
 import br.com.leonardomiyagi.beerlist.presentation.utils.PlaceholderData
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import javax.inject.Inject
 
 class BeerDetailsActivity : BaseActivity(), BeerDetailsContract.View {
@@ -20,6 +24,8 @@ class BeerDetailsActivity : BaseActivity(), BeerDetailsContract.View {
     lateinit var presenter: BeerDetailsContract.Presenter
 
     private lateinit var binding: ActivityBeerDetailsBinding
+
+    private var beerImage: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +41,11 @@ class BeerDetailsActivity : BaseActivity(), BeerDetailsContract.View {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.favorite_menu_item -> {
-                presenter.onFavoriteBeerClicked()
+                if (item.isChecked) {
+                    presenter.onUnfavoriteBeerClicked()
+                } else {
+                    presenter.onFavoriteBeerClicked()
+                }
                 item.isChecked = !item.isChecked
                 item.setIcon(if (item.isChecked) R.drawable.ic_favorite else R.drawable.ic_star_border)
                 true
@@ -61,9 +71,15 @@ class BeerDetailsActivity : BaseActivity(), BeerDetailsContract.View {
     override fun renderBeer(beer: Beer) {
         binding.beer = beer
         Glide.with(this)
+                .asBitmap()
                 .load(beer.imageUrl)
                 .apply(RequestOptions().fitCenter().placeholder(R.drawable.ic_beer_placeholder))
-                .into(binding.beerImage)
+                .into(object : SimpleTarget<Bitmap>() {
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        binding.beerImage.setImageBitmap(resource)
+                        beerImage = resource
+                    }
+                })
     }
 
     override fun showStoreBeerSuccess() {
@@ -72,5 +88,9 @@ class BeerDetailsActivity : BaseActivity(), BeerDetailsContract.View {
 
     override fun showStoreBeerError() {
         Toast.makeText(this, R.string.beer_details_store_beer_error_message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun handleBeerImage(path: String) {
+        presenter.onImageProcessed(ImageUtils.bitmapToFile(beerImage, path))
     }
 }

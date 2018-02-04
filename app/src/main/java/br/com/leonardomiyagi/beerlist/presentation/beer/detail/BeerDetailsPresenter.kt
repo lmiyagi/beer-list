@@ -3,8 +3,10 @@ package br.com.leonardomiyagi.beerlist.presentation.beer.detail
 import br.com.leonardomiyagi.beerlist.domain.beer.StoreBeer
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.domain.provider.SchedulerProvider
+import br.com.leonardomiyagi.beerlist.domain.utils.ImageManager
 import br.com.leonardomiyagi.beerlist.presentation.utils.AppConstants
 import io.reactivex.disposables.Disposable
+import java.io.File
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -13,6 +15,7 @@ import javax.inject.Named
  */
 class BeerDetailsPresenter @Inject constructor(@Named(AppConstants.EXTRA_BEER) private val beer: Beer,
                                                private val storeBeer: StoreBeer,
+                                               private val imageManager: ImageManager,
                                                private val schedulerProvider: SchedulerProvider) : BeerDetailsContract.Presenter {
 
     private var storeBeerDisposable: Disposable? = null
@@ -30,10 +33,19 @@ class BeerDetailsPresenter @Inject constructor(@Named(AppConstants.EXTRA_BEER) p
     }
 
     override fun onFavoriteBeerClicked() {
-        storeBeer()
+        view?.handleBeerImage("${imageManager.getStorageDir()}/${beer.id ?: "unknown_beer"}.png")
     }
 
-    private fun storeBeer() {
+    override fun onUnfavoriteBeerClicked() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onImageProcessed(imageFile: File?) {
+        storeBeer(imageFile)
+    }
+
+    private fun storeBeer(imageFile: File?) {
+        beer.imageUrl = imageFile?.absolutePath
         storeBeerDisposable = storeBeer.execute(beer)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.main())
