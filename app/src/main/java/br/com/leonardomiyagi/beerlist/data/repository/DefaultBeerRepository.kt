@@ -5,6 +5,7 @@ import br.com.leonardomiyagi.beerlist.data.api.model.ApiBeer
 import br.com.leonardomiyagi.beerlist.data.mapper.Mapper
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.domain.repository.BeerRepository
+import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -23,6 +24,10 @@ class DefaultBeerRepository @Inject constructor(private val apiClient: ApiClient
     }
 
     override fun getBeer(): Single<Beer> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun storeBeer(beer: Beer): Completable {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

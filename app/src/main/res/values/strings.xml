@@ -14,4 +14,5 @@
 
     <!-- Main Activity -->
     <string name="main_search_hint">Procurar cerveja…</string>
+    <string name="beer_details_store_beer_success_message">Cerveja adicionada aos favoritos</string>
 </resources>

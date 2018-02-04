@@ -9,10 +9,12 @@ interface BeerDetailsContract {
 
     interface View {
         fun renderBeer(beer: Beer)
+        fun showStoreBeerSuccess()
     }
 
     interface Presenter {
         fun attachView(view: View)
         fun detachView()
+        fun onFavoriteBeerClicked()
     }
 }

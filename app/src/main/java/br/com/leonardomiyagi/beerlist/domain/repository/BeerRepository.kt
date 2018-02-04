@@ -1,6 +1,7 @@
 package br.com.leonardomiyagi.beerlist.domain.repository
 
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
+import io.reactivex.Completable
 import io.reactivex.Single
 
 /**
@@ -13,4 +14,6 @@ interface BeerRepository {
     fun getStoredBeers(): Single<List<Beer>>
 
     fun getBeer(): Single<Beer>
+
+    fun storeBeer(beer: Beer): Completable
 }
