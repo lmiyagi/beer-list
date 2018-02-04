@@ -10,6 +10,7 @@ interface BeerDetailsContract {
     interface View {
         fun renderBeer(beer: Beer)
         fun showStoreBeerSuccess()
+        fun showStoreBeerError()
     }
 
     interface Presenter {

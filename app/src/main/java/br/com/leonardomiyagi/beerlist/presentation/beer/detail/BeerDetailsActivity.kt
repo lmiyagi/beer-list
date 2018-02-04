@@ -9,6 +9,7 @@ import br.com.leonardomiyagi.beerlist.R
 import br.com.leonardomiyagi.beerlist.databinding.ActivityBeerDetailsBinding
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.presentation.base.BaseActivity
+import br.com.leonardomiyagi.beerlist.presentation.utils.PlaceholderData
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import javax.inject.Inject
@@ -67,5 +68,9 @@ class BeerDetailsActivity : BaseActivity(), BeerDetailsContract.View {
 
     override fun showStoreBeerSuccess() {
         Toast.makeText(this, R.string.beer_details_store_beer_success_message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showStoreBeerError() {
+        Toast.makeText(this, R.string.beer_details_store_beer_error_message, Toast.LENGTH_LONG).show()
     }
 }
