@@ -8,6 +8,10 @@ import io.realm.annotations.PrimaryKey
  */
 open class RealmBeer : RealmObject() {
 
+    companion object {
+        const val ID_FIELD = "id"
+    }
+
     @PrimaryKey
     var id: Long? = null
     var name: String? = null

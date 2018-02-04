@@ -16,4 +16,6 @@
     <string name="main_search_hint">Procurar cerveja…</string>
     <string name="beer_details_store_beer_success_message">Cerveja adicionada aos favoritos</string>
     <string name="beer_details_store_beer_error_message">Erro ao favoritar cerveja</string>
+    <string name="beer_details_delete_beer_success">Cerveja removida dos favoritos</string>
+    <string name="beer_details_delete_beer_error">Erro ao remover cerveja dos favoritos.</string>
 </resources>

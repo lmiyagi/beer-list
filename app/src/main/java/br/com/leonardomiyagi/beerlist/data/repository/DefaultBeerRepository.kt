@@ -48,6 +48,23 @@ class DefaultBeerRepository @Inject constructor(private val apiClient: ApiClient
                 realm.executeTransaction { it ->
                     it.insert(domainToRealmMapper.map(beer))
                 }
+                realm.close()
+                Completable.complete()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Completable.error(e)
+            }
+        }
+    }
+
+    override fun deleteBeer(beer: Beer): Completable {
+        return Completable.fromCallable {
+            try {
+                val realm = Realm.getDefaultInstance()
+                realm.executeTransaction { it ->
+                    it.where(RealmBeer::class.java).equalTo(RealmBeer.ID_FIELD, beer.id).findFirst()?.deleteFromRealm()
+                }
+                realm.close()
                 Completable.complete()
             } catch (e: Exception) {
                 e.printStackTrace()

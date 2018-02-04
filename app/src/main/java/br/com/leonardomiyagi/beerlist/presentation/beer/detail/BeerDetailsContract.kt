@@ -13,6 +13,8 @@ interface BeerDetailsContract {
         fun showStoreBeerSuccess()
         fun showStoreBeerError()
         fun handleBeerImage(path: String)
+        fun showDeleteBeerSuccess()
+        fun showDeleteBeerError()
     }
 
     interface Presenter {

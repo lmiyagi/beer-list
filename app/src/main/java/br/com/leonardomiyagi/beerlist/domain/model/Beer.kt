@@ -17,4 +17,5 @@ class Beer : Serializable {
     var firstBrewed: String? = null
     var description: String? = null
     var imageUrl: String? = null
+    val favorited: Boolean = false
 }

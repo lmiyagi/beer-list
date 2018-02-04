@@ -11,7 +11,6 @@ import br.com.leonardomiyagi.beerlist.databinding.ActivityBeerDetailsBinding
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.presentation.base.BaseActivity
 import br.com.leonardomiyagi.beerlist.presentation.utils.ImageUtils
-import br.com.leonardomiyagi.beerlist.presentation.utils.PlaceholderData
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
@@ -26,6 +25,7 @@ class BeerDetailsActivity : BaseActivity(), BeerDetailsContract.View {
     private lateinit var binding: ActivityBeerDetailsBinding
 
     private var beerImage: Bitmap? = null
+    private var favoriteButton: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +48,7 @@ class BeerDetailsActivity : BaseActivity(), BeerDetailsContract.View {
                 }
                 item.isChecked = !item.isChecked
                 item.setIcon(if (item.isChecked) R.drawable.ic_favorite else R.drawable.ic_star_border)
+                favoriteButton = item
                 true
             }
             android.R.id.home -> {
@@ -69,6 +70,7 @@ class BeerDetailsActivity : BaseActivity(), BeerDetailsContract.View {
     }
 
     override fun renderBeer(beer: Beer) {
+        favoriteButton?.isChecked = beer.favorited
         binding.beer = beer
         Glide.with(this)
                 .asBitmap()
@@ -92,5 +94,13 @@ class BeerDetailsActivity : BaseActivity(), BeerDetailsContract.View {
 
     override fun handleBeerImage(path: String) {
         presenter.onImageProcessed(ImageUtils.bitmapToFile(beerImage, path))
+    }
+
+    override fun showDeleteBeerSuccess() {
+        Toast.makeText(this, R.string.beer_details_delete_beer_success, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showDeleteBeerError() {
+        Toast.makeText(this, R.string.beer_details_delete_beer_error, Toast.LENGTH_LONG).show()
     }
 }

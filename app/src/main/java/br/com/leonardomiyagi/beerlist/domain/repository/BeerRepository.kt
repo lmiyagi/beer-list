@@ -16,4 +16,6 @@ interface BeerRepository {
     fun getBeer(): Single<Beer>
 
     fun storeBeer(beer: Beer): Completable
+
+    fun deleteBeer(beer: Beer): Completable
 }
