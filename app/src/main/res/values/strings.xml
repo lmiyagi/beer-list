@@ -9,4 +9,9 @@
     <string name="error_internal_server">Erro no servidor</string>
     <string name="error_unexpected" formatted="false">Ocorreu um erro inesperado: %s</string>
     <string name="error_server_timeout">Tempo limite de conexão esgotado</string>
+
+    <string name="menu_main_favorites">Favoritos</string>
+
+    <!-- Main Activity -->
+    <string name="main_search_hint">Procurar cerveja…</string>
 </resources>
