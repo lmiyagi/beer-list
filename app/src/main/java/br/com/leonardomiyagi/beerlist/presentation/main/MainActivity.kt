@@ -4,7 +4,9 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
 import android.view.Menu
+import android.view.MenuItem
 import br.com.leonardomiyagi.beerlist.R
 import br.com.leonardomiyagi.beerlist.databinding.ActivityMainBinding
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
@@ -13,9 +15,6 @@ import br.com.leonardomiyagi.beerlist.presentation.main.adapter.BeerAdapter
 import br.com.leonardomiyagi.beerlist.presentation.utils.Navigator
 import br.com.leonardomiyagi.beerlist.presentation.utils.PlaceholderData
 import javax.inject.Inject
-import android.R.menu
-import android.support.v4.view.MenuItemCompat.getActionView
-import android.support.v7.widget.SearchView
 
 
 class MainActivity : BaseActivity(), MainContract.View, BeerAdapter.OnClickListener {
@@ -40,6 +39,20 @@ class MainActivity : BaseActivity(), MainContract.View, BeerAdapter.OnClickListe
         searchView.queryHint = getString(R.string.main_search_hint)
         setupSearch(searchView)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.favorites_menu_item) {
+            if (item.isChecked) {
+                presenter.onShowAllBeersClicked()
+            } else {
+                presenter.onShowFavoriteBeersClicked()
+            }
+            item.isChecked = !item.isChecked
+            item.setIcon(if (item.isChecked) R.drawable.ic_undo else R.drawable.ic_favorite)
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onStart() {

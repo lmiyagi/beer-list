@@ -59,6 +59,7 @@ class BeerAdapter(private val listener: OnClickListener) : RecyclerView.Adapter<
     fun setBeers(beers: List<Beer>) {
         this.beers.clear()
         this.beers.addAll(beers)
+        filteredBeers.clear()
         filteredBeers.addAll(beers)
         notifyDataSetChanged()
     }

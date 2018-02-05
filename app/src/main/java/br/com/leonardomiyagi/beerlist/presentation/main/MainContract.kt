@@ -21,5 +21,7 @@ interface MainContract {
         fun attachView(view: View)
         fun detachView()
         fun onBeerClicked(beer: Beer)
+        fun onShowAllBeersClicked()
+        fun onShowFavoriteBeersClicked()
     }
 }
