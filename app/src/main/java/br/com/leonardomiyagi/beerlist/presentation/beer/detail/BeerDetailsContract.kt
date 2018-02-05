@@ -9,6 +9,7 @@ import java.io.File
 interface BeerDetailsContract {
 
     interface View {
+        fun showGetBeerError()
         fun renderBeer(beer: Beer)
         fun showStoreBeerSuccess()
         fun showStoreBeerError()

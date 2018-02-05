@@ -1,10 +1,7 @@
 package br.com.leonardomiyagi.beerlist.presentation.beer
 
 import br.com.leonardomiyagi.beerlist.data.repository.DefaultBeerRepository
-import br.com.leonardomiyagi.beerlist.domain.beer.DeleteBeer
-import br.com.leonardomiyagi.beerlist.domain.beer.GetBeers
-import br.com.leonardomiyagi.beerlist.domain.beer.GetFavoriteBeers
-import br.com.leonardomiyagi.beerlist.domain.beer.StoreBeer
+import br.com.leonardomiyagi.beerlist.domain.beer.*
 import br.com.leonardomiyagi.beerlist.domain.repository.BeerRepository
 import br.com.leonardomiyagi.beerlist.presentation.graph.ActivityScoped
 import dagger.Binds
@@ -50,6 +47,13 @@ abstract class BeerModule {
         @ActivityScoped
         fun provideDeleteBeer(beerRepository: BeerRepository): DeleteBeer {
             return DeleteBeer(beerRepository)
+        }
+
+        @Provides
+        @JvmStatic
+        @ActivityScoped
+        fun provideGetBeer(beerRepository: BeerRepository): GetBeer {
+            return GetBeer(beerRepository)
         }
     }
 }

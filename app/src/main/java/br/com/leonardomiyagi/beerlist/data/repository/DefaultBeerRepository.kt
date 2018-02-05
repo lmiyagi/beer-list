@@ -3,6 +3,7 @@ package br.com.leonardomiyagi.beerlist.data.repository
 import br.com.leonardomiyagi.beerlist.data.api.ApiClient
 import br.com.leonardomiyagi.beerlist.data.api.model.ApiBeer
 import br.com.leonardomiyagi.beerlist.data.local.model.RealmBeer
+import br.com.leonardomiyagi.beerlist.data.local.utils.RealmNotFoundException
 import br.com.leonardomiyagi.beerlist.data.mapper.Mapper
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.domain.repository.BeerRepository
@@ -37,8 +38,21 @@ class DefaultBeerRepository @Inject constructor(private val apiClient: ApiClient
         }
     }
 
-    override fun getBeer(): Single<Beer> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getBeer(beerId: Long): Single<Beer> {
+        return Single.fromCallable<Beer> {
+            try {
+                val realm = Realm.getDefaultInstance()
+                val realmBeer = realm.where(RealmBeer::class.java).equalTo(RealmBeer.ID_FIELD, beerId).findFirst()
+                if (realmBeer == null) {
+                    throw RealmNotFoundException()
+                } else {
+                    realmToDomainMapper.map(realmBeer)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                throw e
+            }
+        }
     }
 
     override fun storeBeer(beer: Beer): Completable {

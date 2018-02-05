@@ -18,6 +18,7 @@ class RealmBeerToBeerMapper : Mapper<RealmBeer, Beer>() {
         beer.firstBrewed = realmBeer.firstBrewed
         beer.description = realmBeer.description
         beer.imageUrl = realmBeer.imageUrl
+        beer.favorited = true
         return beer
     }
 }

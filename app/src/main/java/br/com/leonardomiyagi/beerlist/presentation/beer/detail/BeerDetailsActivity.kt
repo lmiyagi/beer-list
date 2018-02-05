@@ -25,7 +25,7 @@ class BeerDetailsActivity : BaseActivity(), BeerDetailsContract.View {
     private lateinit var binding: ActivityBeerDetailsBinding
 
     private var beerImage: Bitmap? = null
-    private var favoriteButton: MenuItem? = null
+    private var beer: Beer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +38,13 @@ class BeerDetailsActivity : BaseActivity(), BeerDetailsContract.View {
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val favoriteMenuItem = menu?.findItem(R.id.favorite_menu_item)
+        favoriteMenuItem?.isChecked = beer?.favorited ?: false
+        favoriteMenuItem?.setIcon(if (beer?.favorited == true) R.drawable.ic_favorite else R.drawable.ic_star_border)
+        return super.onPrepareOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.favorite_menu_item -> {
@@ -48,7 +55,6 @@ class BeerDetailsActivity : BaseActivity(), BeerDetailsContract.View {
                 }
                 item.isChecked = !item.isChecked
                 item.setIcon(if (item.isChecked) R.drawable.ic_favorite else R.drawable.ic_star_border)
-                favoriteButton = item
                 true
             }
             android.R.id.home -> {
@@ -69,8 +75,12 @@ class BeerDetailsActivity : BaseActivity(), BeerDetailsContract.View {
         super.onStop()
     }
 
+    override fun showGetBeerError() {
+        Toast.makeText(this, R.string.beer_details_get_beer_error, Toast.LENGTH_SHORT).show()
+    }
+
     override fun renderBeer(beer: Beer) {
-        favoriteButton?.isChecked = beer.favorited
+        this.beer = beer
         binding.beer = beer
         Glide.with(this)
                 .asBitmap()

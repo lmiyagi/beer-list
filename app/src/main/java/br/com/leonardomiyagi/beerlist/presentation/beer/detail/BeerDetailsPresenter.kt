@@ -1,6 +1,8 @@
 package br.com.leonardomiyagi.beerlist.presentation.beer.detail
 
+import br.com.leonardomiyagi.beerlist.data.local.utils.RealmNotFoundException
 import br.com.leonardomiyagi.beerlist.domain.beer.DeleteBeer
+import br.com.leonardomiyagi.beerlist.domain.beer.GetBeer
 import br.com.leonardomiyagi.beerlist.domain.beer.StoreBeer
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.domain.provider.SchedulerProvider
@@ -15,6 +17,7 @@ import javax.inject.Named
  * Created by lmiyagi on 02/02/18.
  */
 class BeerDetailsPresenter @Inject constructor(@Named(AppConstants.EXTRA_BEER) private val beer: Beer,
+                                               private val getBeer: GetBeer,
                                                private val storeBeer: StoreBeer,
                                                private val deleteBeer: DeleteBeer,
                                                private val imageManager: ImageManager,
@@ -26,7 +29,7 @@ class BeerDetailsPresenter @Inject constructor(@Named(AppConstants.EXTRA_BEER) p
 
     override fun attachView(view: BeerDetailsContract.View) {
         this.view = view
-        view.renderBeer(beer)
+        getStoredBeer()
     }
 
     override fun detachView() {
@@ -44,6 +47,23 @@ class BeerDetailsPresenter @Inject constructor(@Named(AppConstants.EXTRA_BEER) p
 
     override fun onImageProcessed(imageFile: File?) {
         storeBeer(imageFile)
+    }
+
+    private fun getStoredBeer() {
+        val getBeerDisposable = getBeer.execute(beer.id ?: -1)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.main())
+                .subscribe({
+                    view?.renderBeer(it)
+                }, {
+                    if (it is RealmNotFoundException) {
+                        view?.renderBeer(beer)
+                    } else {
+                        it.printStackTrace()
+                        view?.showGetBeerError()
+                    }
+                })
+        disposables?.add(getBeerDisposable)
     }
 
     private fun storeBeer(imageFile: File?) {

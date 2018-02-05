@@ -13,7 +13,7 @@ interface BeerRepository {
 
     fun getStoredBeers(): Single<List<Beer>>
 
-    fun getBeer(): Single<Beer>
+    fun getBeer(beerId: Long): Single<Beer>
 
     fun storeBeer(beer: Beer): Completable
 
