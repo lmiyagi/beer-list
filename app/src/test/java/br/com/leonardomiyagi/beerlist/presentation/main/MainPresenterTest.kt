@@ -3,6 +3,7 @@ package br.com.leonardomiyagi.beerlist.presentation.main
 import br.com.leonardomiyagi.beerlist.base.BaseTest
 import br.com.leonardomiyagi.beerlist.data.utils.RequestException
 import br.com.leonardomiyagi.beerlist.domain.beer.GetBeers
+import br.com.leonardomiyagi.beerlist.domain.beer.GetFavoriteBeers
 import br.com.leonardomiyagi.beerlist.domain.model.Beer
 import br.com.leonardomiyagi.beerlist.domain.provider.SchedulerProvider
 import br.com.leonardomiyagi.beerlist.presentation.utils.ErrorHandler
@@ -28,6 +29,8 @@ class MainPresenterTest : BaseTest() {
     @Mock
     lateinit var schedulers: SchedulerProvider
     @Mock
+    lateinit var getFavoriteBeers: GetFavoriteBeers
+    @Mock
     lateinit var errorHandler: ErrorHandler
     @Mock
     lateinit var view: MainContract.View
@@ -42,7 +45,7 @@ class MainPresenterTest : BaseTest() {
         `when`(schedulers.main()).thenReturn(Schedulers.trampoline())
         setupExpectedBeers()
 
-        presenter = MainPresenter(getBeers, schedulers, errorHandler)
+        presenter = MainPresenter(getBeers, getFavoriteBeers, schedulers, errorHandler)
     }
 
     @Test
